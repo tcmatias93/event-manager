@@ -1,11 +1,12 @@
 'use client'
 import * as React from 'react';
-import styles from './page.module.css'
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import CreateEvent from '@/components/CreateEvents';
 import Event from '@/components/event';
+import { Provider } from 'react-redux';
+import { store } from '@/redux/store';
 
 
 const style = {
@@ -23,12 +24,14 @@ const style = {
 
 
 export default function Home() {
+
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   return (
-
-    <>
+    <Provider store={store}>
+      <Event />
       <Button variant="contained" disableElevation onClick={handleOpen}>
         Nuevo evento
       </Button>
@@ -42,7 +45,9 @@ export default function Home() {
           <CreateEvent />
         </Box>
       </Modal>
-      <Event />
-    </>
+
+    </Provider>
+
+
   )
 }

@@ -8,6 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { useSelector } from 'react-redux';
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -40,7 +41,7 @@ function createData(
   return { nombre, fecha, hora, lugar, descripcion };
 }
 
-const rows = [];
+
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -56,6 +57,11 @@ const style = {
 
 
 const Event: React.FC = () => {
+  const eventos = useSelector((state) => state.events.list);
+
+
+
+  console.log('eventos 2 ', eventos)
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -64,20 +70,19 @@ const Event: React.FC = () => {
             <StyledTableCell>Eventos</StyledTableCell>
             <StyledTableCell align="right">Fecha</StyledTableCell>
             <StyledTableCell align="right">Hora</StyledTableCell>
-            <StyledTableCell align="right">Ubicación</StyledTableCell>
             <StyledTableCell align="right">Descripción</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.name}>
+          {eventos.map((row) => (
+            <StyledTableRow key={row.eventName}>
               <StyledTableCell component="th" scope="row">
-                {row.name}
+                {row.eventName}
               </StyledTableCell>
-              <StyledTableCell align="right">{row.calories}</StyledTableCell>
-              <StyledTableCell align="right">{row.fat}</StyledTableCell>
-              <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-              <StyledTableCell align="right">{row.protein}</StyledTableCell>
+              <StyledTableCell align="right">{row.eventDate}</StyledTableCell>
+              <StyledTableCell align="right">{row.eventHour}</StyledTableCell>
+              <StyledTableCell align="right">{row.eventDescription}</StyledTableCell>
+
             </StyledTableRow>
           ))}
         </TableBody>
